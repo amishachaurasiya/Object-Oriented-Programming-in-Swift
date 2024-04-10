@@ -1,1 +1,79 @@
+// 1
+class Instrument {
+  // 2
+  let brand: String
+  // 3
+  init(brand: String) {
+    //4 
+    self.brand = brand
+  }
+}
+
+
+// 1
+class Piano: Instrument {
+  let hasPedals: Bool
+  // 2
+  static let whiteKeys = 52
+  static let blackKeys = 36
+  
+  // 3
+  init(brand: String, hasPedals: Bool = false) {
+    self.hasPedals = hasPedals
+    // 4
+    super.init(brand: brand)
+  }
+
+
+  
+  // 5
+  override func tune() -> String {
+    return "Piano standard tuning for \(brand)."
+  }
+  
+  override func play(_ music: Music) -> String {
+    // 6 
+    let preparedNotes = super.play(music)
+    return "Piano playing \(preparedNotes)"
+  }
+}
+
+// 1
+let piano = Piano(brand: "Yamaha", hasPedals: true)
+piano.tune()
+// 2
+let music = Music(notes: ["C", "G", "F"])
+piano.play(music, usingPedals: false)
+// 3
+piano.play(music)
+// 4
+Piano.whiteKeys
+Piano.blackKeys
+
+
+class Guitar: Instrument {
+  let stringGauge: String
+  
+  init(brand: String, stringGauge: String = "medium") {
+    self.stringGauge = stringGauge
+    super.init(brand: brand)
+  }
+}
+
+class AcousticGuitar: Guitar {
+  static let numberOfStrings = 6
+  static let fretCount = 20
+  
+  override func tune() -> String {
+    return "Tune \(brand) acoustic with E A D G B E"
+  }
+  
+  override func play(_ music: Music) -> String {
+    let preparedNotes = super.play(music)
+    return "Play folk tune on frets \(preparedNotes)."
+  }
+}
+let acousticGuitar = AcousticGuitar(brand: "Roland", stringGauge: "light")
+acousticGuitar.tune()
+acousticGuitar.play(music)
 
